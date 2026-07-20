@@ -9,8 +9,6 @@ Game Specific : Lamps
 #ifndef GS_LAMPS_H
 #define GS_LAMPS_H
 
-#include "System/Lamps/LampsHelper.h"
-
 #include <stdint.h>
 
 namespace LampsHelper {
@@ -37,4 +35,4 @@ void showTimerLamps(uint8_t baseTimer, uint8_t currentTimer);
 #define ANIM_ANIMATION3 2
 #define ANIM_ANIMATION4 3
 
-#endif // LAMPS_H
+#endif // GS_LAMPS_H

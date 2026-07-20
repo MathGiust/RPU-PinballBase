@@ -10,13 +10,12 @@
 #ifndef BONUS_H
 #define BONUS_H
 
-#include "PlayerState.h"
 #include "System/MachineState.h"
 
 #include <Arduino.h>
 
 namespace BonusCountDown {
-uint8_t run(bool curStateChanged, PlayerState* _currentPlayer);
+void run(boolean curStateChanged, MachineState& machineState);
 }
 
 #endif

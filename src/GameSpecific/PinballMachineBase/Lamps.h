@@ -11,7 +11,7 @@
 #define LAMP_BONUS_36K 3 // Q57
 
 #define LAMP_BONUS_45K 4 // Q12
-#define LAMP_BONUS_54 5  // Q27
+#define LAMP_BONUS_54K 5  // Q27
 #define LAMP_BONUS_63K 6 // Q38
 #define LAMP_BONUS_72K 7 // Q50
 

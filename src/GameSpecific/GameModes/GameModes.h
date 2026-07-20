@@ -1,27 +1,8 @@
-#ifndef GS_GAME_MODES_H
-#define GS_GAME_MODES_H
+#ifndef GS_GAMEMODES_H
+#define GS_GAMEMODES_H
 
 #include "BaseMode.h"
 #include "GameSpecific/PinballMachineBase/Constants.h"
-
-namespace GameModes {
-void initGameModes(MachineState* _machineState, PlayerState* _players);
-void initNewBall();
-
-// Game modes life
-void startMode(GameModeIDs GameModeID);
-void stopMode(GameModeIDs GameModeID);
-void update();
-void manageSwitchHit(uint8_t switchHit);
-
-// Getters
-bool getGameModeStatus(GameModeIDs GameModeID);
-
-// Mode timers
-void    manageModeTimer();
-uint8_t getGlobalTimer();
-void    setGlobalTimer(uint8_t value);
-} // namespace GameModes
 
 /***************************************************************************************************/
 //
@@ -30,17 +11,16 @@ void    setGlobalTimer(uint8_t value);
 /***************************************************************************************************/
 
 class UnstructuredPlay final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
     explicit UnstructuredPlay(const bool useGlobal)
         : BaseMode(useGlobal) {}
 
-    void onStart() override;
-    void update() override;
-    void handleSwitchHit(uint8_t switchHit) override;
-    void onEnd() override;
+    void        onStart() override;
+    void        update() override;
+    void        handleSwitchHit(uint8_t switchHit) override;
+    void        onEnd() override;
 };
 static UnstructuredPlay unstructuredPlay(false);
 
@@ -51,7 +31,6 @@ static UnstructuredPlay unstructuredPlay(false);
 /***************************************************************************************************/
 
 class SkillShot final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -72,7 +51,6 @@ static SkillShot skillShot(false);
 /***************************************************************************************************/
 
 class WizardMode final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -88,12 +66,31 @@ static WizardMode wizardMode(false);
 
 /***************************************************************************************************/
 //
+// MINI WIZARD MODE
+//
+/***************************************************************************************************/
+
+class MiniWizard final : public BaseMode {
+    void updateLamps() override;
+
+public:
+    explicit MiniWizard(const bool useGlobal)
+        : BaseMode(useGlobal) {}
+
+    void onStart() override;
+    void update() override;
+    void handleSwitchHit(uint8_t switchHit) override;
+    void onEnd() override;
+};
+static MiniWizard miniWizard(false);
+
+/***************************************************************************************************/
+//
 // GAMEMODE 1
 //
 /***************************************************************************************************/
 
 class GameMode1 final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -114,7 +111,6 @@ static GameMode1 gamemode1(false);
 /***************************************************************************************************/
 
 class GameMode2 final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -135,7 +131,6 @@ static GameMode2 gamemode2(false);
 /***************************************************************************************************/
 
 class GameMode3 final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -156,7 +151,6 @@ static GameMode3 gamemode3(false);
 /***************************************************************************************************/
 
 class GameMode4 final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -177,7 +171,6 @@ static GameMode4 gamemode4(false);
 /***************************************************************************************************/
 
 class GameMode5 final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -198,7 +191,6 @@ static GameMode5 gamemode5(false);
 /***************************************************************************************************/
 
 class GameMode6 final : public BaseMode {
-protected:
     void updateLamps() override;
 
 public:
@@ -217,10 +209,6 @@ constexpr BaseMode* gameModes[NUMBER_OF_MODES] = {
         &gamemode1,
         &gamemode2,
         &gamemode3,
-        &gamemode4,
-        &gamemode5,
-        &gamemode6,
-        &skillShot,
 };
 
 #endif

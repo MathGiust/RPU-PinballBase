@@ -10,14 +10,15 @@
 #ifndef ATTRACT_STATE_H
 #define ATTRACT_STATE_H
 
-#include "System/MachineState.h"
 #include "Arduino.h"
+#include "System/MachineState.h"
 
 #define FEATURE_SHOW_TIMEOUT 60000
 #define TAUNT_TIMEOUT 15000
 
 namespace Attract {
-int run(boolean currentStateChanged, MachineState& machineState);
-}
+void run(boolean currentStateChanged, MachineState& machineState);
+void handleSwitchHit(uint8_t switchHit);
+} // namespace Attract
 
 #endif

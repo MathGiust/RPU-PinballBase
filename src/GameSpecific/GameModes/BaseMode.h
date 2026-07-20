@@ -14,7 +14,6 @@ protected:
     uint8_t modeTimer;
 
     static uint8_t       globalTimer; // Shared across all modes
-    static PlayerState*  players;
     static PlayerState*  currentPlayer;
     static MachineState* machineState;
 
@@ -27,17 +26,14 @@ public:
     virtual ~BaseMode() = default;
 
     // ---- Static variables ----
-    static void initBaseMode(MachineState* _machineState, PlayerState* _players) {
-        machineState = _machineState;
-        players      = _players;
-    }
-    static void updateCurrentPlayer() { currentPlayer = &players[machineState->getCurrentPlayerNumber()]; }
+    static void setMachineState(MachineState* _machineState) { machineState = _machineState; }
+    static void updateCurrentPlayer(PlayerState* newPlayer) { currentPlayer = newPlayer; }
 
     // ---- Lifecycle ----
-    virtual void onStart() {}
-    virtual void update() {}
-    virtual void handleSwitchHit(uint8_t switchHit) {}
-    virtual void onEnd() {}
+    virtual void onStart()                          = 0;
+    virtual void update()                           = 0;
+    virtual void handleSwitchHit(uint8_t switchHit) = 0;
+    virtual void onEnd()                            = 0;
 
     // ---- State Access ----
     bool isActive() const { return active; }

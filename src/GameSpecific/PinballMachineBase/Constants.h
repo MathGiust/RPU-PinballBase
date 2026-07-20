@@ -1,7 +1,3 @@
-//
-// Created by mathias on 5/21/26.
-//
-
 #ifndef RPU_CONSTANTS_H
 #define RPU_CONSTANTS_H
 
@@ -15,10 +11,6 @@
 // Game Constants
 //
 //*************************************************************************************************************************************************************/
-
-#define GAME_MAJOR_VERSION 2026      // YEAR
-#define GAME_MINOR_VERSION 0614      // DAY-MONTH
-#define RPU_OS_INIT_PROOF 0x48475431 // HAR1
 
 #define BALLS_PER_GAME 3
 #define COINS_PER_CREDIT 2
@@ -53,9 +45,16 @@
 #define MAX_BONUS_MULTIPLIER 5
 #define MAX_BONUS 49
 
+#define TIMED_SOUND_STACK_SIZE 20
 #define WTRIG_BASE_GAIN (-3)
 #define WAV_TRIGGER_TIMESTAMP 10
 #define BACKGROUND_MUSIC_ENABLE 1
+
+enum NoveltyIDs : uint8_t {
+    NOVELTY_POINTS_AND_EB = 0,
+    NOVELTY_POINTS_ONLY,
+    NOVELTY_EB_ONLY
+};
 
 //*************************************************************************************************************************************************************/
 //
