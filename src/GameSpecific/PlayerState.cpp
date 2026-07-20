@@ -1,7 +1,6 @@
 #include "PlayerState.h"
 
 #include "GameSpecific/Gameplay.h"
-#include "GameSpecific/Lamps.h"
 #include "System/Lamps/LampsHelper.h"
 #include "System/Utilities.h"
 
