@@ -19,9 +19,9 @@
 #include <Arduino.h>
 
 #define EEPROM_RPU_OS_INIT_PROOF_UL 90
-#define RPU_OS_INIT_PROOF 0x44504348 // DPCH
+#define RPU_OS_INIT_PROOF 0x4D595331 // MYS1
 #define GAME_MAJOR_VERSION 2026      // YEAR
-#define GAME_MINOR_VERSION 14        // DAY-MONTH
+#define GAME_MINOR_VERSION 720       // DAY-MONTH
 
 PlayerState playerStates[4];
 score_t*    scores[4]{
