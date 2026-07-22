@@ -35,6 +35,8 @@ void Gameplay::manageNewState() {
     Log::printMessage(Log::LOG_GAMESTATE, "Entering Gameplay");
     while (RPU_PullFirstFromSwitchStack() != SWITCH_STACK_EMPTY) {}
 
+    if (RPU_ReadSingleSwitchState(SW_OUTHOLE)) lastOutholeHitTime = Time::getCurrentTime();
+
     DisplayHelper::stopAllDisplayOverride();
     DisplayHelper::setBallInPlayDisplayValue(machineState->getBallInPlay());
 
@@ -85,6 +87,8 @@ bool manageBallInThrough() {
     }
     if (Time::getCurrentTime() - machineState->getBallSaveStartTime() < machineState->getBallSaveDuration()) {
         Log::printMessage(Log::LOG_GAMEPLAY, "Ball saved");
+        Log::printVariable(Log::LOG_GAMEPLAY, "Ball save Current", Time::getCurrentTime() - machineState->getBallSaveStartTime());
+        Log::printVariable(Log::LOG_GAMEPLAY, "Ball save Duration", machineState->getBallSaveDuration());
         machineState->setPlayfieldValidated(false);
         RPU_PushToSolenoidStack(SOL_OUTHOLE, SOL_OUTHOLE_KICKER_STRENGTH, true);
         Time::updateLastOutholeKickTime();
