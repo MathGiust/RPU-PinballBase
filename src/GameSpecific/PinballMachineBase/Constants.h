@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define DEV_MODE 0
+#define DEV_MODE 1
 #define DEBUG_MESSAGES 1
 
 //*************************************************************************************************************************************************************/
@@ -34,8 +34,8 @@
 #define LAMP_FLASH_MIN_PERIOD 30
 
 #define TILT_WARNING_DEBOUNCE_TIME 1000
-#define INIT_NEW_BALL_DURATION 200
-#define RESTART_GAME_DURATION 200
+#define INIT_NEW_BALL_DURATION 450
+#define RESTART_GAME_DURATION 2000
 #define LAST_BALL_HIGH_SCORE_DURATION 2000
 
 #define NUMBER_OF_OBJECTIVES 5 // Number of Objective, each objective has an associated GameMode (1-6)

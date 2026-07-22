@@ -63,6 +63,8 @@ void Attract::handleSwitchHit(const uint8_t switchHit) {
 void initAttractState(MachineState& machineState) {
     currentStateStartTime = Time::getCurrentTime();
 
+    machineState.setBallInPlay(-1);
+
     RPU_DisableSolenoidStack();
     RPU_SetDisableFlippers(true);
 
