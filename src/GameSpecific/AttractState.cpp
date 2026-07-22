@@ -78,11 +78,11 @@ void initAttractState(MachineState& machineState) {
     uint8_t numberOfKnocks    = 0;
     for (uint8_t i = 0; i < 4; i++) {
         scores[i] = machineState.getPlayerScore(i);
-        RPU_WriteULToEEProm(RPU_PLAYER_1_SCORE_START_BYTE + i * 4, scores[i]);
+        RPU_WriteULToEEProm(RPU_PLAYER_1_SCORE_UL + i * 4, scores[i]);
         if (scores[i] > previousHighScore) {
             numberOfKnocks += 3;
             RPU_WriteULToEEProm(RPU_TOTAL_HISCORE_BEATEN_START_BYTE, RPU_ReadULFromEEProm(RPU_TOTAL_HISCORE_BEATEN_START_BYTE) + 1);
-            RPU_WriteULToEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE, scores[i]);
+            RPU_WriteULToEEProm(RPU_HIGHSCORE_EEPROM_UL, scores[i]);
             machineState.setHighScore(scores[i]);
             previousHighScore = scores[i];
         }

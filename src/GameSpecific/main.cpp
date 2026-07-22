@@ -117,15 +117,15 @@ GameState initSystem() {
             checkSumOK = true;
 
             delay(10);
-            machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE)));
+            machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_UL)));
             delay(10);
 
             // Read High score from EEPROM
-            machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE, 0)));
+            machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_UL, 0)));
 
             // Read Last scores from EEPROM
             for (uint8_t count = 0; count < 4; count++) {
-                machineState.setScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_PLAYER_1_SCORE_START_BYTE + 4 * count, 0)), count);
+                machineState.setScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_PLAYER_1_SCORE_UL + 4 * count, 0)), count);
             }
         } else { // INCORRECT CHECKSUM
             Serial.println("WRITE ALL PARAMETERS");
@@ -136,7 +136,7 @@ GameState initSystem() {
             // Reset last scores from EEPROM
             for (uint8_t count = 0; count < 4; count++) {
                 delay(10);
-                RPU_WriteULToEEProm(RPU_PLAYER_1_SCORE_START_BYTE + 4 * count, 0);
+                RPU_WriteULToEEProm(RPU_PLAYER_1_SCORE_UL + 4 * count, 0);
             }
         }
     }

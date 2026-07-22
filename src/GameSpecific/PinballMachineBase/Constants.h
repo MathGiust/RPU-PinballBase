@@ -50,11 +50,6 @@
 #define WAV_TRIGGER_TIMESTAMP 10
 #define BACKGROUND_MUSIC_ENABLE 1
 
-enum NoveltyIDs : uint8_t {
-    NOVELTY_POINTS_AND_EB = 0,
-    NOVELTY_POINTS_ONLY,
-    NOVELTY_EB_ONLY
-};
 
 //*************************************************************************************************************************************************************/
 //
