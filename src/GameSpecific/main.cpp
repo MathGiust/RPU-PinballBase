@@ -6,6 +6,7 @@
 #include "GameSpecific/PinballMachineBase/Solenoids.h"
 #include "GameSpecific/PlayerState.h"
 #include "PinballMachineBase/Constants.h"
+#include "PinballMachineBase/Sound.h"
 #include "System/Display.h"
 #include "System/GameState.h"
 #include "System/Log.h"
@@ -31,15 +32,34 @@ score_t*    scores[4]{
         &playerStates[3].score,
 };
 
-DropTargetBankControlled* dropTargetBanks[NUMBER_OF_DROP_TARGET_BANKS]{};
-StandupTargetBank*        standupTargetBanks[NUMBER_OF_STANDUP_TARGET_BANKS]{};
-DebouncedSwitch*          debouncedSwitches[NUMBER_OF_DEBOUNCED_SWITCHES]{};
+DropTargetBank dropBankLeft(
+        3, DTB_LEFT_SWITCHES,
+        1, DTB_LEFT_SOLS, SOL_DROP_RESET_STRENGTH,
+        DTB_LEFT_STATUS
+);
+DropTargetBank dropBankMid(
+        3, DTB_MID_SWITCHES,
+        1, DTB_MID_SOLS, SOL_DROP_RESET_STRENGTH,
+        DTB_MID_STATUS
+);
+DropTargetBank dropBankRight(
+        3, DTB_RIGHT_SWITCHES,
+        1, DTB_RIGHT_SOLS, SOL_DROP_RESET_STRENGTH,
+        DTB_RIGHT_STATUS
+);
+DropTargetBank* dropTargetBanks[NUMBER_OF_DROP_TARGET_BANKS]{
+        &dropBankLeft,
+        &dropBankMid,
+        &dropBankRight
+};
+StandupTargetBank* standupTargetBanks[NUMBER_OF_STANDUP_TARGET_BANKS]{};
+DebouncedSwitch*   debouncedSwitches[NUMBER_OF_DEBOUNCED_SWITCHES]{};
 
 MachineState machineState(
         4, scores,
-        NUMBER_OF_DROP_TARGET_BANKS, *dropTargetBanks,
-        NUMBER_OF_STANDUP_TARGET_BANKS, *standupTargetBanks,
-        NUMBER_OF_DEBOUNCED_SWITCHES, *debouncedSwitches,
+        NUMBER_OF_DROP_TARGET_BANKS, dropTargetBanks,
+        NUMBER_OF_STANDUP_TARGET_BANKS, standupTargetBanks,
+        NUMBER_OF_DEBOUNCED_SWITCHES, debouncedSwitches,
         SW_OUTHOLE
 );
 
@@ -153,6 +173,8 @@ GameState initNewGame() {
 
         DisplayHelper::stopAllDisplayOverride();
         LampsHelper::hideAllPlayfieldLamps();
+
+        SoundHelper::playSoundEffect(DASH51_ADD_PLAYER, AUDIO_DASH51);
     }
 
     if (Time::getCurrentTime() - gameStartTime < RESTART_GAME_DURATION) return initNewGame;
@@ -168,6 +190,10 @@ GameState initNewBall() {
 
         machineState.initNewBall();
         playerStates[machineState.getCurrentPlayerNumber()].initNewBall();
+
+        machineState.DTB[0]->resetBank(Time::getCurrentTime());
+        machineState.DTB[1]->resetBank(Time::getCurrentTime() + 150);
+        machineState.DTB[2]->resetBank(Time::getCurrentTime() + 300);
     }
 
     if (Time::getCurrentTime() - ballStartTime < INIT_NEW_BALL_DURATION) return initNewBall;
@@ -245,11 +271,8 @@ void update() {
     SoundHelper::WaveTrigger::update();
     SoundHelper::Playlist::update();
 
-    for (auto& bank : dropTargetBanks) {
-        bank->update(Time::getCurrentTime());
-    }
-    for (uint8_t debouncedSwitch = 0; debouncedSwitch < NUMBER_OF_DEBOUNCED_SWITCHES; debouncedSwitch++) {
-        machineState.DEB[debouncedSwitch].update();
+    for (auto& dropTargetBank : dropTargetBanks) {
+        dropTargetBank->update(Time::getCurrentTime());
     }
 }
 void handleSwitchHit() {
