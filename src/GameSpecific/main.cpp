@@ -196,18 +196,24 @@ GameState initNewBall() {
         machineState.DTB[0]->resetBank(Time::getCurrentTime());
         machineState.DTB[1]->resetBank(Time::getCurrentTime() + 150);
         machineState.DTB[2]->resetBank(Time::getCurrentTime() + 300);
+
+        if (GS_EEPROM::soundType == SOUND_NOISE_WITH_BACKGROUND) SoundHelper::playSoundEffect(DASH51_BACKGROUND_START, AUDIO_DASH51);
     }
 
     if (Time::getCurrentTime() - ballStartTime < INIT_NEW_BALL_DURATION) return initNewBall;
     return runGameplay;
 }
 GameState runGameplay() {
-    if (GameState::hasChanged()) Gameplay::manageNewState();
+    if (GameState::hasChanged()) {
+        Gameplay::manageNewState();
+        SoundHelper::playSoundEffect(DASH51_NEW_BALL, AUDIO_DASH51);
+    }
     return Gameplay::run() ? runBonusCountDown : runGameplay;
 }
 GameState runBonusCountDown() {
     if (GameState::hasChanged()) {
         Log::printMessage(Log::LOG_GAMESTATE, "Entering Bonus Count Down");
+        SoundHelper::playSoundEffect(DASH51_BACKGROUND_STOP, AUDIO_DASH51);
     }
     return machineState.increaseCurrentPlayerNumber() ? runAttract : initNewBall;
 }

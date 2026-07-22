@@ -9,6 +9,7 @@ Version : 1.00
 
 #include "GameSpecific/GameModes/GameModes.h"
 #include "GameSpecific/Lamps.h"
+#include "GameSpecific/PinballMachineBase/Adjustments.h"
 #include "GameSpecific/PinballMachineBase/Lamps.h"
 #include "GameSpecific/PinballMachineBase/Playfield.h"
 #include "GameSpecific/PinballMachineBase/Solenoids.h"
@@ -43,12 +44,14 @@ void UnstructuredPlay::handleSwitchHit(const uint8_t switchHit) {
         SoundHelper::playSoundEffect(DASH51_BUMPER, AUDIO_DASH51);
         Scoring::addToStack(STACK_HUNDRED, 1);
         eyeLit = !eyeLit;
+        if (GS_EEPROM::spinnerDifficulty) spinnerLit = !spinnerLit;
         break;
     case SW_LEFT_SLING:
     case SW_RIGHT_SLING:
         SoundHelper::playSoundEffect(DASH51_SLINGS, AUDIO_DASH51);
         Scoring::addToStack(STACK_TENS, 1);
         eyeLit = !eyeLit;
+        if (GS_EEPROM::spinnerDifficulty) spinnerLit = !spinnerLit;
         break;
     case SW_DROP_TARGET_7:
     case SW_DROP_TARGET_4:
