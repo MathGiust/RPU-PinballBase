@@ -1,7 +1,6 @@
 #ifndef GS_ADJUSTMENTS_H
 #define GS_ADJUSTMENTS_H
 
-#include "EEPROM.h"
 #include "System/OperatorMenu/OperatorMenu.h"
 
 #define EEPROM_ADJ_GRID_HELD 100

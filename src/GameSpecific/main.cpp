@@ -57,6 +57,7 @@ DebouncedSwitch*   debouncedSwitches[NUMBER_OF_DEBOUNCED_SWITCHES]{};
 
 MachineState machineState(
         4, scores,
+        SW_COIN_1, SW_COIN_2, SW_COIN_3,
         NUMBER_OF_DROP_TARGET_BANKS, dropTargetBanks,
         NUMBER_OF_STANDUP_TARGET_BANKS, standupTargetBanks,
         NUMBER_OF_DEBOUNCED_SWITCHES, debouncedSwitches,
@@ -239,7 +240,7 @@ void setup() {
     Log::printMessage(Log::LOG_NONE, "Initialization Finished : New code running");
 
     DisplayHelper::initDisplay(machineState);
-    Scoring::initScoring(machineState);
+    Scoring::initScoring(machineState, 5, 1);
     Gameplay::init(&machineState, playerStates);
     SoundHelper::clearSoundQueue();
     SoundHelper::WaveTrigger::init();

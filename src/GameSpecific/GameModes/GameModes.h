@@ -4,6 +4,24 @@
 #include "BaseMode.h"
 #include "GameSpecific/PinballMachineBase/Constants.h"
 
+namespace GameModes {
+void init(MachineState* _machineState, PlayerState* _playerStates);
+
+// Game modes life
+void startMode(GameModeIDs GameModeID);
+void stopMode(GameModeIDs GameModeID);
+void update();
+void manageSwitchHit(uint8_t switchHit);
+
+// Getters
+bool getGameModeStatus(GameModeIDs GameModeID);
+
+// Mode timers
+void    manageModeTimer();
+uint8_t getGlobalTimer();
+void    setGlobalTimer(uint8_t value);
+} // namespace GameModes
+
 /***************************************************************************************************/
 //
 // UNSTRUCTURED PLAY

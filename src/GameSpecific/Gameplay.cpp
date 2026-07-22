@@ -1,11 +1,10 @@
 #include "GameSpecific/Gameplay.h"
 
 #include "GameModes/BaseMode.h"
-#include "Lamps.h"
 #include "PinballMachineBase/Solenoids.h"
 #include "PlayerState.h"
 #include "System/Display.h"
-#include "System/GameModes.h"
+#include "GameModes/GameModes.h"
 #include "System/Lamps/LampsHelper.h"
 #include "System/Log.h"
 #include "System/MachineState.h"
