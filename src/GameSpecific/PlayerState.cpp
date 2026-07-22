@@ -1,7 +1,7 @@
 #include "PlayerState.h"
 
 #include "GameSpecific/Gameplay.h"
-#include "PinballMachineBase/EEPROM.h"
+#include "PinballMachineBase/Adjustments.h"
 #include "System/Lamps/LampsHelper.h"
 #include "System/Utilities.h"
 
@@ -16,7 +16,7 @@ void PlayerState::initNewBall() {
     bonusMultiplier = 1;
     bonus           = 1;
 
-    if (!holdGrid) resetGrid();
+    if (GS_EEPROM::holdGrid) resetGrid();
 }
 
 void PlayerState::resetGrid() {
