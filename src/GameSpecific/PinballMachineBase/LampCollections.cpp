@@ -63,22 +63,37 @@ LAMPCOLL(
         allPyramids, 4,
         LAMP_PYRAMID_BB, LAMP_CENTER_DROP_PYRAMID, LAMP_LEFT_DROP_PYRAMID, LAMP_RIGHT_DROP_PYRAMID,
 );
+LAMPCOLL(
+        dropEyes, 3,
+        LAMP_LEFT_DROP_EYE, LAMP_CENTER_DROP_EYE, LAMP_RIGHT_DROP_EYE
+);
+LAMPCOLL(
+        dropPyramids, 3,
+        LAMP_LEFT_DROP_PYRAMID, LAMP_CENTER_DROP_PYRAMID, LAMP_RIGHT_DROP_PYRAMID
+);
+LAMPCOLL(
+        dropArrows, 3,
+        LAMP_LEFT_DROP_ARROW, LAMP_CENTER_DROP_ARROW, LAMP_RIGHT_DROP_ARROW
+);
 
 extern LampCollection* lampCollections[NUM_LAMP_COLLECTIONS] = {
-    &descendingBonusLamps,
-    &bonusMultiplier,
-    &stars,
-    &starAwards,
-    &captiveBall,
-    &leftDrop,
-    &centerDrop,
-    &rightDrop,
-    &allEyes,
-    &allPyramids,
-    &gridEyeTop,
-    &gridEyeMid,
-    &gridEyeBot,
-    &gridPyramidTop,
-    &gridPyramidMid,
-    &gridpyramidBot
+        &descendingBonusLamps,
+        &bonusMultiplier,
+        &stars,
+        &starAwards,
+        &captiveBall,
+        &leftDrop,
+        &centerDrop,
+        &rightDrop,
+        &allEyes,
+        &allPyramids,
+        &gridEyeTop,
+        &gridEyeMid,
+        &gridEyeBot,
+        &gridPyramidTop,
+        &gridPyramidMid,
+        &gridpyramidBot,
+        &dropEyes,
+        &dropPyramids,
+        &dropArrows,
 };
