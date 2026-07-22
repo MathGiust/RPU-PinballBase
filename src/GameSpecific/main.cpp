@@ -93,49 +93,50 @@ GameState initSystem() {
 
     if (GameState::hasChanged()) {
         Log::printMessage(Log::LOG_NONE, "Initializing System");
-        checkSumOK = false;
-        initTime   = 0;
+        initTime = Time::getCurrentTime();
 
         RPU_SetDisplay(0, GAME_MAJOR_VERSION, true, 0);
         RPU_SetDisplay(1, GAME_MINOR_VERSION, true, 0);
         RPU_SetDisplay(2, RPU_OS_MAJOR_VERSION, true, 0);
         RPU_SetDisplay(3, RPU_OS_MINOR_VERSION, true, 0);
 
-        if (DEV_MODE) { // Dev mode loads does not read EEPROM
-            operatorMenu.loadAllDefaults();
-            checkSumOK = true;
-            initTime   = Time::getCurrentTime();
-        } else {
-            // Check if INIT PROOF is ok then loads all parameters
-            // ReSharper disable once CppDFAUnreachableCode
-            if (RPU_ReadULFromEEProm(EEPROM_RPU_OS_INIT_PROOF_UL, 0) == RPU_OS_INIT_PROOF) {
-                Serial.println("CHECKSUM OK");
-                operatorMenu.readAllEEPROM_Values();
+        if (DEV_MODE) {
+            if (!checkSumOK) {
                 checkSumOK = true;
+                operatorMenu.loadDefaultFromFlash();
+            }
+            initTime = Time::getCurrentTime();
+            return initSystem;
+        }
 
+        // Check if INIT PROOF is ok then loads all parameters
+        // ReSharper disable once CppDFAUnreachableCode
+        if (RPU_ReadULFromEEProm(EEPROM_RPU_OS_INIT_PROOF_UL, 0) == RPU_OS_INIT_PROOF) { // CHECKSUM OK
+            Serial.println("CHECKSUM OK");
+            operatorMenu.readAllEEPROM_Values();
+            checkSumOK = true;
+
+            delay(10);
+            machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE)));
+            delay(10);
+
+            // Read High score from EEPROM
+            machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE, 0)));
+
+            // Read Last scores from EEPROM
+            for (uint8_t count = 0; count < 4; count++) {
+                machineState.setScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_PLAYER_1_SCORE_START_BYTE + 4 * count, 0)), count);
+            }
+        } else { // INCORRECT CHECKSUM
+            Serial.println("WRITE ALL PARAMETERS");
+            RPU_WriteULToEEProm(EEPROM_RPU_OS_INIT_PROOF_UL, RPU_OS_INIT_PROOF);
+            operatorMenu.writeAllDefaultEEPROM_Values();
+            checkSumOK = false;
+
+            // Reset last scores from EEPROM
+            for (uint8_t count = 0; count < 4; count++) {
                 delay(10);
-                machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE)));
-                delay(10);
-
-                // Read High score from EEPROM
-                machineState.setHighScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_HIGHSCORE_EEPROM_START_BYTE, 0)));
-
-                // Read Last scores from EEPROM
-                for (uint8_t count = 0; count < 4; count++) {
-                    machineState.setScore(static_cast<score_t>(RPU_ReadULFromEEProm(RPU_PLAYER_1_SCORE_START_BYTE + 4 * count, 0)), count);
-                }
-            } else {
-                Serial.println("WRITE ALL PARAMETERS");
-                RPU_WriteULToEEProm(EEPROM_RPU_OS_INIT_PROOF_UL, RPU_OS_INIT_PROOF);
-                // SelfTestAndAudit::writeDefaultEEPROM_Values();
-                initTime   = Time::getCurrentTime();
-                checkSumOK = false;
-
-                // Reset last scores from EEPROM
-                for (uint8_t count = 0; count < 4; count++) {
-                    delay(10);
-                    RPU_WriteULToEEProm(RPU_PLAYER_1_SCORE_START_BYTE + 4 * count, 0);
-                }
+                RPU_WriteULToEEProm(RPU_PLAYER_1_SCORE_START_BYTE + 4 * count, 0);
             }
         }
     }
