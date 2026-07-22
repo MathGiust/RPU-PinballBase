@@ -19,6 +19,7 @@ public:
     uint8_t bonusMultiplier{1};
     uint8_t bonus{0};
 
+    void resetGrid();
     void reset();
     void initNewBall();
 

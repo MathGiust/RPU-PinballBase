@@ -64,7 +64,7 @@ MachineState machineState(
 );
 
 OperatorMenu operatorMenu(
-        SW_SELF_TEST_SWITCH, SW_CREDIT_BUTTON, SW_SLAM,
+        SW_COIN_1, SW_CREDIT_BUTTON, SW_SLAM,
         SOL_TEST_STRENGTH, NUMBER_OF_STD_TESTS,
         standardAuditTable, NUMBER_OF_STD_AUDITS,
         standardAdjustmentTable, NUMBER_OF_STD_ADJ,
@@ -141,7 +141,7 @@ GameState initSystem() {
     }
 
     if ((!checkSumOK && RPU_ReadSingleSwitchState(SW_SELF_TEST_SWITCH))
-        || (checkSumOK && Time::getCurrentTime() - initTime > 3000)) return runAttract;
+        || (checkSumOK && Time::getCurrentTime() - initTime > (DEV_MODE ? 250 : 3000))) return runAttract;
 
     return initSystem;
 }
@@ -291,12 +291,12 @@ void handleSwitchHit() {
                 if (machineState.getBallInPlay() > 1) {
                     Log::printMessage(Log::LOG_MACHINE_STATE, "BIP > 1 --> Restart game");
                     GameState::currentGameState = initNewGame;
-                } else machineState.addPlayers();
+                } else machineState.addPlayer();
             }
         }
         break;
     case SW_SELF_TEST_SWITCH:
-        GameState::currentGameState = runOperatorMenu;
+        if (GameState::currentGameState != runOperatorMenu) GameState::currentGameState = runOperatorMenu;
         break;
     default:
         break;

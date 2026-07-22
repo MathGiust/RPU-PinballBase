@@ -13,25 +13,25 @@
 #define SW_COIN_2 9
 #define SW_COIN_3 10
 #define SW_30PTS_REBOUND 11
-#define SW_CENTER_DROP_TARGET_3 12 // RIGHT
-#define SW_CENTER_DROP_TARGET_2 13 // MID
-#define SW_CENTER_DROP_TARGET_1 14 // LEFT
+#define SW_DROP_TARGET_8 12 // RIGHT
+#define SW_DROP_TARGET_5 13 // MID
+#define SW_DROP_TARGET_2 14 // LEFT
 #define SW_SLAM 15
 #define SW_RIGHT_OUTLANE 16
 #define SW_LEFT_OUTLANE 17
 #define SW_RIGHT_INLANE 18
 #define SW_LEFT_INLANE 19
-#define SW_RIGHT_DROP_TARGET_3 20 // TOP
-#define SW_RIGHT_DROP_TARGET_2 21 // MID
-#define SW_RIGHT_DROP_TARGET_1 22 // BOT
+#define SW_DROP_TARGET_9 20 // BOT
+#define SW_DROP_TARGET_6 21 // MID
+#define SW_DROP_TARGET_3 22 // TOP
 #define SW_SAUCER 23
 #define SW_24 24
 #define SW_25 25
 #define SW_26 26
 #define SW_27 27
-#define SW_LEFT_DROP_TARGET_3 28 // TOP
-#define SW_LEFT_DROP_TARGET_2 29 // MID
-#define SW_LEFT_DROP_TARGET_1 30 // BOT
+#define SW_DROP_TARGET_1 28 // TOP
+#define SW_DROP_TARGET_4 29 // MID
+#define SW_DROP_TARGET_7 30 // BOT
 #define SW_CAPTIVE_BALL 31
 #define SW_32 32
 #define SW_33 33

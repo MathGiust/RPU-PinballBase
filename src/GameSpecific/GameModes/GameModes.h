@@ -21,6 +21,8 @@ public:
     void        update() override;
     void        handleSwitchHit(uint8_t switchHit) override;
     void        onEnd() override;
+
+    void        handleDropTargetHit(uint8_t switchHit, uint8_t bankNumber);
 };
 static UnstructuredPlay unstructuredPlay(false);
 

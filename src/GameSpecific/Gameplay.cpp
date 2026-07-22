@@ -42,6 +42,7 @@ void Gameplay::manageNewState() {
 
     LampsHelper::hideAllLamps();
 
+    BaseMode::updateCurrentPlayer(&playerStates[machineState->getCurrentPlayerNumber()]);
     GameModes::startMode(GAMEMODE_UNSTRUCTURED_PLAY);
 }
 

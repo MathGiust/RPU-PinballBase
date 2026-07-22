@@ -22,9 +22,9 @@ enum DEB : uint8_t {
 };
 
 static uint8_t DTB_LEFT_SWITCHES[] = {
-        SW_LEFT_DROP_TARGET_1,
-        SW_LEFT_DROP_TARGET_2,
-        SW_LEFT_DROP_TARGET_3
+        SW_DROP_TARGET_1,
+        SW_DROP_TARGET_4,
+        SW_DROP_TARGET_7
 };
 static uint8_t DTB_LEFT_SOLS[] = {
         SOL_LEFT_DROP_TARGET_RESET
@@ -32,9 +32,9 @@ static uint8_t DTB_LEFT_SOLS[] = {
 static bool DTB_LEFT_STATUS[3] = {};
 
 static uint8_t DTB_MID_SWITCHES[] = {
-        SW_CENTER_DROP_TARGET_1,
-        SW_CENTER_DROP_TARGET_2,
-        SW_CENTER_DROP_TARGET_3
+        SW_DROP_TARGET_2,
+        SW_DROP_TARGET_5,
+        SW_DROP_TARGET_8
 };
 static uint8_t DTB_MID_SOLS[] = {
         SOL_CENTER_DROP_TARGET_RESET
@@ -42,9 +42,9 @@ static uint8_t DTB_MID_SOLS[] = {
 static bool DTB_MID_STATUS[3] = {};
 
 static uint8_t DTB_RIGHT_SWITCHES[] = {
-        SW_RIGHT_DROP_TARGET_1,
-        SW_RIGHT_DROP_TARGET_2,
-        SW_RIGHT_DROP_TARGET_3
+        SW_DROP_TARGET_3,
+        SW_DROP_TARGET_6,
+        SW_DROP_TARGET_9
 };
 static uint8_t DTB_RIGHT_SOLS[] = {
         SOL_RIGHT_DROP_TARGET_RESET

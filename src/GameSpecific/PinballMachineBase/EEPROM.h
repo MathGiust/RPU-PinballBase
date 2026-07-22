@@ -45,7 +45,6 @@
 #define EEPROM_MUSIC_GAIN_BYTE 97
 #define EEPROM_KNOCKER_MODE_BYTE 98
 
-// Game Specific Adjustments
-#define EEPROM_ADJ_ 100
+static bool holdGrid = false;
 
 #endif // RPU_EEPROM_H

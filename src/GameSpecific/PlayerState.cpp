@@ -1,21 +1,32 @@
 #include "PlayerState.h"
 
 #include "GameSpecific/Gameplay.h"
+#include "PinballMachineBase/EEPROM.h"
 #include "System/Lamps/LampsHelper.h"
 #include "System/Utilities.h"
 
-// TODO : Reset player for new game
 void PlayerState::reset() {
     score           = 0;
     bonusMultiplier = 1;
     bonus           = 1;
+
+    resetGrid();
 }
-// TODO : Init new ball
 void PlayerState::initNewBall() {
     bonusMultiplier = 1;
     bonus           = 1;
+
+    if (!holdGrid) resetGrid();
 }
 
+void PlayerState::resetGrid() {
+    for (uint8_t x = 0; x < 3; ++x) {
+        for (uint8_t y = 0; y < 3; ++y) {
+            eyeGrid[x][y]     = false;
+            pyramidGrid[x][y] = false;
+        }
+    }
+}
 void PlayerState::handleGridHit(const uint8_t x, const uint8_t y, const bool eye) {
     eyeGrid[x][y]     = eye;
     pyramidGrid[x][y] = !eye;
