@@ -92,6 +92,7 @@ void UnstructuredPlay::updateLamps() {
 
     currentPlayer->showEyeGrid();
     currentPlayer->showPyramidGrid();
+    currentPlayer->showCompletedLines();
 }
 
 void UnstructuredPlay::handleDropTargetHit(const uint8_t switchHit, const uint8_t bankNumber) {

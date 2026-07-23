@@ -28,7 +28,7 @@ const AdjItem specificAdjustmentTable[NUMBER_OF_GS_ADJ] = {
         {EEPROM_ADJ_GRID_HELD_BYTE,          TYPE_BOOL, ADJ_TOGGLE, 0, 1, 1, nullptr, 0, &GS_EEPROM::holdGrid         },
         {EEPROM_ADJ_HOLD_STARS_BYTE,         TYPE_BOOL, ADJ_TOGGLE, 0, 1, 1, nullptr, 0, &GS_EEPROM::holdStars        },
         {EEPROM_ADJ_SPINNER_DIFFICULTY_BYTE, TYPE_BOOL, ADJ_TOGGLE, 0, 1, 1, nullptr, 0, &GS_EEPROM::spinnerDifficulty},
-        {EEPROM_ADJ_SOUND_TYPE_BYTE,         TYPE_BYTE, ADJ_RANGE,  0, 3, 1, nullptr, 0, &GS_EEPROM::soundType        },
+        {EEPROM_ADJ_SOUND_TYPE_BYTE,         TYPE_BYTE, ADJ_RANGE,  0, 3, 1, nullptr, 1, &GS_EEPROM::soundType        },
 };
 
 #endif // GS_ADJUSTMENTS_H

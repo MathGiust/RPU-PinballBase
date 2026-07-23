@@ -3,6 +3,7 @@
 #include "GameSpecific/PinballMachineBase/Constants.h"
 #include "GameSpecific/PinballMachineBase/Lamps.h"
 #include "PinballMachineBase/Solenoids.h"
+#include "PinballMachineBase/Sound.h"
 #include "PinballMachineBase/Switches.h"
 #include "System/Display.h"
 #include "System/Lamps/LampsHelper.h"
@@ -106,6 +107,7 @@ void initAttractState(MachineState& machineState) {
     LampsHelper::setLampState(LAMP_CREDIT_INDICATOR, MachineState::EEPROMData::freeplay || MachineState::EEPROMData::credits, 0, 200);
 
     // SOUND
+    SoundHelper::playSoundEffect(DASH51_BACKGROUND_STOP, AUDIO_DASH51);
     SoundHelper::Playlist::stopCurrent();
 }
 
