@@ -1,7 +1,10 @@
 #include "Lamps.h"
 
 LAMPCOLL(
-        descendingBonusLamps, 0,
+        descendingBonusLamps, 9,
+        LAMP_BONUS_9K, LAMP_BONUS_18K, LAMP_BONUS_27K,
+        LAMP_BONUS_36K, LAMP_BONUS_45K, LAMP_BONUS_54K,
+        LAMP_BONUS_63K, LAMP_BONUS_72K, LAMP_BONUS_SPECIAL,
 );
 LAMPCOLL(
         bonusMultiplier, 3,
