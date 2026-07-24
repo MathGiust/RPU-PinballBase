@@ -1,40 +1,29 @@
-/*********************************************************************
-
-
-    Bonus Count Source File
-    Version : 1.00
-
-
-*********************************************************************/
-
 #include "GameSpecific/BonusCountDown.h"
 
+#include "GameModes/BaseMode.h"
 #include "System/Scoring.h"
 
-#define PHASE_INIT 0
-#define PHASE_COUNT_DOLLY 1
-#define PHASE_COUNT_PARTON 2
-#define PHASE_COUNT_SUPER 3
+static uint8_t grid[3][3]         = {{0}};
+static uint8_t completedLineCount = 0;
 
-#define BONUS_SCORING_DELAY 100
-#define SUPER_BONUS_DELAY 150
+static void manageNewState(const PlayerState* currentPlayer);
+static void updateLamps(PlayerState* currentPlayer);
 
-static void manageNewState(MachineState& machineState);
-static void updateLamps(MachineState& machineState);
-
-void BonusCountDown::run(const boolean curStateChanged, MachineState& machineState) {
-    if (curStateChanged) manageNewState(machineState);
+void manageNewState(const PlayerState* currentPlayer) {
+    // Copy grid content
+    for (uint8_t i = 0; i < 3; i++) {
+        for (uint8_t j = 0; j < 3; j++) {
+            grid[i][j] = currentPlayer->getGrid()[i][j];
+        }
+    }
+    completedLineCount = currentPlayer->getCompletedLineCount();
+}
+void BonusCountDown::run(const boolean curStateChanged, PlayerState* currentPlayer) {
+    if (curStateChanged) manageNewState(currentPlayer);
 
     Scoring::updateScoring();
-    updateLamps(machineState);
+    updateLamps(currentPlayer);
 }
 
-//
-//  Static
-//
-
-void manageNewState(MachineState& machineState) {
-}
-
-void updateLamps(MachineState& machineState) {
+void updateLamps(PlayerState* currentPlayer) {
 }

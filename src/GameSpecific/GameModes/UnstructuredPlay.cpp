@@ -21,17 +21,28 @@ Version : 1.00
 #include "System/Sound/WaveTriggerHandler.h"
 #include "System/Utilities.h"
 
-static bool eyeLit     = false;
-static bool spinnerLit = false;
+static bool         eyeLit              = false;
+static bool         spinnerLit          = false;
+static uint8_t      captiveBallProgress = 0;
+static Time::time_t lastCaptiveBallTime = 0;
 
 void UnstructuredPlay::onStart() {
     lampsNeedUpdate = true;
 
-    eyeLit     = false;
-    spinnerLit = false;
+    eyeLit              = false;
+    spinnerLit          = false;
+    captiveBallProgress = 0;
 }
 void UnstructuredPlay::update() {
     updateLamps();
+
+    if (lastCaptiveBallTime && Time::getCurrentTime() - lastCaptiveBallTime > GS_EEPROM::captiveBallTimer) {
+        lampsNeedUpdate = true;
+        if (captiveBallProgress) {
+            captiveBallProgress--;
+            lastCaptiveBallTime = Time::getCurrentTime();
+        } else lastCaptiveBallTime = 0;
+    }
 }
 void UnstructuredPlay::onEnd() {
 }
@@ -41,10 +52,9 @@ void UnstructuredPlay::handleSwitchHit(const uint8_t switchHit) {
     case SW_LEFT_BUMPER:
     case SW_RIGHT_BUMPER:
     case SW_BOTTOM_BUMPER:
+        currentPlayer->handleBumperHit();
         SoundHelper::playSoundEffect(DASH51_BUMPER, AUDIO_DASH51);
-        Scoring::addToStack(STACK_HUNDRED, 1);
         eyeLit = !eyeLit;
-        if (GS_EEPROM::spinnerDifficulty) spinnerLit = !spinnerLit;
         break;
     case SW_LEFT_SLING:
     case SW_RIGHT_SLING:
@@ -73,8 +83,15 @@ void UnstructuredPlay::handleSwitchHit(const uint8_t switchHit) {
         break;
     case SW_LEFT_SPINNER:
     case SW_RIGHT_SPINNER:
-        Scoring::addScoreToStacks(spinnerLit ? 1000 : 10);
-        SoundHelper::playSoundEffect(spinnerLit ? DASH51_LIT_SPINNER : DASH51_UNLIT_SPINNER, AUDIO_DASH51);
+        currentPlayer->handleSpinnerHit();
+        break;
+    case SW_CAPTIVE_BALL:
+        lastCaptiveBallTime = Time::getCurrentTime();
+        if (captiveBallProgress == 4) {
+            // TODO : Give mystical artifact
+            SoundHelper::playSoundEffect(DASH51_SUPER_BONUS, AUDIO_DASH51);
+        }
+        captiveBallProgress++;
         break;
     default:
         break;
@@ -93,6 +110,10 @@ void UnstructuredPlay::updateLamps() {
     currentPlayer->showEyeGrid();
     currentPlayer->showPyramidGrid();
     currentPlayer->showCompletedLines();
+
+    // Captive ball
+    if (lastCaptiveBallTime) LampsHelper::showOneLampFromCollection(LAMP_COLL_CAPTIVE_BALL, captiveBallProgress, 250);
+    else LampsHelper::setLampCollection(LAMP_COLL_CAPTIVE_BALL, false, 0, 0);
 }
 
 void UnstructuredPlay::handleDropTargetHit(const uint8_t switchHit, const uint8_t bankNumber) {

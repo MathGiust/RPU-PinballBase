@@ -19,11 +19,12 @@ struct Grid {
 class PlayerState {
     uint8_t bumperCount{0};
     uint8_t spinnerCount{0};
+    uint8_t bumperLevel{0};
+    uint8_t spinnerLevel{0};
 
+    Grid    grid;
+    bool    stars[4]{false};
     uint8_t completedLineCount = 0;
-
-    Grid grid;
-    bool stars[4]{false};
 
 public:
     score_t score{0};
@@ -40,6 +41,12 @@ public:
     void showCompletedLines() const {
         if (completedLineCount) LampsHelper::showOneLampFromCollection(LAMP_COLL_BONUS_LAMPS, completedLineCount - 1, 0);
     }
+
+    const uint8_t (*getGrid() const)[3] { return grid.grid; }
+    uint8_t getCompletedLineCount() const { return completedLineCount; }
+
+    void handleBumperHit();
+    void handleSpinnerHit();
 };
 
 #endif // GS_PLAYER_STATE_H

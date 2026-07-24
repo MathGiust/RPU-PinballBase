@@ -2,7 +2,9 @@
 
 #include "GameSpecific/Gameplay.h"
 #include "PinballMachineBase/Adjustments.h"
+#include "PinballMachineBase/Sound.h"
 #include "System/Lamps/LampsHelper.h"
+#include "System/Sound/Sound.h"
 #include "System/Utilities.h"
 
 void PlayerState::reset() {
@@ -128,5 +130,35 @@ void PlayerState::showEyeGrid() const {
         for (uint8_t x = 0; x < 3; x++) {
             LampsHelper::setLampState(eyeGridLamps[y][x], grid.grid[y][x] == 1, 0, 0);
         }
+    }
+}
+
+void PlayerState::handleBumperHit() {
+    static constexpr score_t bumperScores[] = {
+            100, 500, 1000, 3000
+    };
+
+    Scoring::addScoreToStacks(bumperScores[bumperLevel]);
+
+    bumperCount++;
+    if (bumperCount >= GS_EEPROM::bumperCount) {
+        bumperCount = 0;
+        bumperLevel++;
+        if (bumperLevel > 3) bumperLevel = 3;
+        SoundHelper::playSoundEffect(DASH51_EXTRA_SCORING, AUDIO_DASH51);
+    }
+}
+void PlayerState::handleSpinnerHit() {
+    static constexpr score_t spinnerScores[] = {
+            100, 500, 1000, 3000
+    };
+    Scoring::addScoreToStacks(spinnerScores[spinnerLevel]);
+
+    spinnerCount++;
+    if (spinnerCount >= GS_EEPROM::spinnerCount) {
+        spinnerCount = 0;
+        spinnerLevel++;
+        if (spinnerLevel > 3) spinnerLevel = 3;
+        SoundHelper::playSoundEffect(DASH51_EXTRA_SCORING, AUDIO_DASH51);
     }
 }
