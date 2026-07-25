@@ -36,7 +36,7 @@ void UnstructuredPlay::onStart() {
 void UnstructuredPlay::update() {
     updateLamps();
 
-    if (lastCaptiveBallTime && Time::getCurrentTime() - lastCaptiveBallTime > GS_EEPROM::captiveBallTimer) {
+    if (lastCaptiveBallTime && Time::getCurrentTime() - lastCaptiveBallTime > GS_EEPROM::captiveBallTimer * 1000) {
         lampsNeedUpdate = true;
         if (captiveBallProgress) {
             captiveBallProgress--;
@@ -112,7 +112,7 @@ void UnstructuredPlay::updateLamps() {
     currentPlayer->showCompletedLines();
 
     // Captive ball
-    if (lastCaptiveBallTime) LampsHelper::showOneLampFromCollection(LAMP_COLL_CAPTIVE_BALL, captiveBallProgress, 250);
+    if (lastCaptiveBallTime) LampsHelper::showOneLampFromCollection(LAMP_COLL_CAPTIVE_BALL, captiveBallProgress - 1, 250);
     else LampsHelper::setLampCollection(LAMP_COLL_CAPTIVE_BALL, false, 0, 0);
 }
 

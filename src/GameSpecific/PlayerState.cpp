@@ -12,6 +12,11 @@ void PlayerState::reset() {
     bonusMultiplier = 1;
     bonus           = 1;
 
+    spinnerCount = 0;
+    bumperCount  = 0;
+    spinnerLevel = 0;
+    bumperLevel  = 0;
+
     completedLineCount = 0;
     resetGrid();
 }
