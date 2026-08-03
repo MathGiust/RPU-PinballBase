@@ -12,6 +12,6 @@ enum AnimationIDs : uint8_t {
     NUM_ANIMATIONS
 };
 
-extern LampAnimation const *animationList[NUM_ANIMATIONS];
+extern LampAnimation *animationList[NUM_ANIMATIONS];
 
 #endif // ANIMATION_DATA_H

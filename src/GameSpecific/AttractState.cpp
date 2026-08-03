@@ -1,7 +1,6 @@
 #include "GameSpecific/AttractState.h"
 
-#include "Animations/LampAnimation.h"
-#include "GameSpecific/PinballMachineBase/Constants.h"
+#include "Animations/Animations.h"
 #include "GameSpecific/PinballMachineBase/Lamps.h"
 #include "PinballMachineBase/Solenoids.h"
 #include "PinballMachineBase/Sound.h"
@@ -106,7 +105,7 @@ void initAttractState(MachineState& machineState) {
 
     // Lamp animation
     LampsHelper::setLampState(LAMP_CREDIT_INDICATOR, MachineState::EEPROMData::freeplay || MachineState::EEPROMData::credits, 0, 200);
-    Animations::startAnimation(0, AnimationDirection::PING_PONG, 0, 100);
+    Animations::startLampAnimation(ANIM_BALLY, AnimationDirection::FORWARD, 0, 500);
 
     // SOUND
     SoundHelper::playSoundEffect(DASH51_BACKGROUND_STOP, AUDIO_DASH51);

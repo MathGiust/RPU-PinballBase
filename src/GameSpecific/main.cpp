@@ -1,6 +1,5 @@
-#include "Animations/LampAnimation.h"
+#include "Animations/Animations.h"
 #include "GameSpecific/AttractState.h"
-#include "GameSpecific/BonusCountDown.h"
 #include "GameSpecific/Gameplay.h"
 #include "GameSpecific/PinballMachineBase/Adjustments.h"
 #include "GameSpecific/PinballMachineBase/Playfield.h"
