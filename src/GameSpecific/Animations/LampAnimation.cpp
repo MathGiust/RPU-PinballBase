@@ -5,8 +5,6 @@
 
 #include <avr/pgmspace.h>
 
-extern LampAnimation* animationList[];
-
 namespace {
 uint8_t            currentAnimation     = 0xFF; // 0xFF = no animation running
 uint8_t            currentFrame         = 0;
