@@ -26,4 +26,4 @@ LampAnimation* animationList[] = {
         &anim1
 };
 
-constexpr uint8_t NUM_ANIMATIONS = sizeof(animationList) / sizeof(animationList[0]);
+uint8_t NUM_ANIMATIONS = sizeof(animationList) / sizeof(animationList[0]);

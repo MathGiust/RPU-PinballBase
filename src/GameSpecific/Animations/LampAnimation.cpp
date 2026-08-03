@@ -5,7 +5,7 @@
 #include <avr/pgmspace.h>
 
 extern LampAnimation* animationList[];
-extern const uint8_t  NUM_ANIMATIONS;
+extern uint8_t  NUM_ANIMATIONS;
 
 namespace {
 uint8_t            currentAnimation     = 0xFF; // 0xFF = no animation running
