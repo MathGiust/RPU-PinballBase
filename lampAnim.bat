@@ -1,0 +1,1 @@
+generate_lamp_animations.py --lamps src/GameSpecific/PinballMachineBase/Lamps.h --rpu-config src/GameSpecific/RPU_Config.h --input tools/animations.def --out-cpp src/GameSpecific/Animations/AnimationData.cpp --out-header src/GameSpecific/Animations/AnimationData.h 
