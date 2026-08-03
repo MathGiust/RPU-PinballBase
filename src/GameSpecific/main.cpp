@@ -1,3 +1,4 @@
+#include "Animations/LampAnimation.h"
 #include "GameSpecific/AttractState.h"
 #include "GameSpecific/BonusCountDown.h"
 #include "GameSpecific/Gameplay.h"
@@ -272,6 +273,7 @@ void setup() {
 void update() {
     if (GameState::currentGameState != runOperatorMenu && GameState::currentGameState != initSystem) DisplayHelper::update();
 
+    Animations::update();
     LampsHelper::update();
     RPU_UpdateTimedSolenoidStack(Time::getCurrentTime());
 
