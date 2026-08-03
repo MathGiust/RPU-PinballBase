@@ -1,0 +1,116 @@
+#ifndef GS_BASE_LAMPS_H
+#define GS_BASE_LAMPS_H
+
+#include "System/Lamps/LampCollection.h"
+
+#include <stdint.h>
+
+#define LAMP_BONUS_9K 0  // Q14
+#define LAMP_BONUS_18K 1 // Q29
+#define LAMP_BONUS_27K 2 // Q36
+#define LAMP_BONUS_36K 3 // Q57
+
+#define LAMP_BONUS_45K 4 // Q12
+#define LAMP_BONUS_54K 5  // Q27
+#define LAMP_BONUS_63K 6 // Q38
+#define LAMP_BONUS_72K 7 // Q50
+
+// Byte 1
+#define LAMP_LEFT_DROP_ARROW 8   // Q13
+#define LAMP_CENTER_PYRAMID_3 9  // Q28
+#define LAMP_CENTER_PYRAMID_2 10 // Q44
+#define LAMP_CENTER_PYRAMID_1 11 // Q51
+
+#define LAMP_RIGHT_DROP_ARROW 12 // Q08
+#define LAMP_CENTER_PYRAMID_6 13 // Q54
+#define LAMP_CENTER_PYRAMID_5 14 // Q49
+#define LAMP_CENTER_PYRAMID_4 15 // Q35
+
+// Byte 2
+#define LAMP_CENTER_DROP_ARROW 16 // Q09
+#define LAMP_CENTER_PYRAMID_9 17  // Q34
+#define LAMP_CENTER_PYRAMID_8 18  // Q48
+#define LAMP_CENTER_PYRAMID_7 19  // Q55
+
+#define LAMP_BONUS_SPECIAL 20 // Q10
+#define LAMP_CENTER_EYE_3 21  // Q22
+#define LAMP_CENTER_EYE_2 22  // Q37
+#define LAMP_CENTER_EYE_1 23  // Q60
+
+// Byte 3
+#define LAMP_STARS_EXTRA_BALL 24 // Q11
+#define LAMP_CENTER_EYE_6 25     // Q26
+#define LAMP_CENTER_EYE_5 26     // Q32
+#define LAMP_CENTER_EYE_4 27     // Q59
+
+#define LAMP_STARS_SPECIAL 28 // Q04
+#define LAMP_CENTER_EYE_9 29  // Q25
+#define LAMP_CENTER_EYE_8 30  // Q20
+#define LAMP_CENTER_EYE_7 31  // Q58
+
+// Byte 4
+#define LAMP_CAPTIVE_BALL_2X 32 // Q01
+#define LAMP_CAPTIVE_BALL_3X 33 // Q24
+#define LAMP_PYRAMID_BB 34      // Q42
+#define LAMP_SPINNERS 35        // Q56
+
+#define LAMP_CAPTIVE_BALL_25K 36 // Q02
+#define LAMP_2X_BONUS 37         // Q17
+#define LAMP_3X_BONUS 38         // Q41
+#define LAMP_4X_BONUS 39         // Q46
+
+// Byte 5
+#define LAMP_SHOOT_AGAIN_PF 40   // Q03
+#define LAMP_MATCH 41            // Q23
+#define LAMP_EYE_BB 42           // Q40
+#define LAMP_CREDIT_INDICATOR 43 // Q52
+
+#define LAMP_RIGHT_DROP_EYE 44     // Q07
+#define LAMP_RIGHT_DROP_PYRAMID 45 // Q21
+#define LAMP_LEFT_DROP_EYE 46      // Q39
+#define LAMP_LEFT_DROP_PYRAMID 47  // Q53
+
+// Byte 6
+#define LAMP_BALL_IN_PLAY 48 // Q16
+#define LAMP_HIGH_SCORE 49   // Q15
+#define LAMP_GAME_OVER 50    // Q33
+#define LAMP_TILT 51         // Q47
+
+#define LAMP_CENTER_DROP_EYE 52      // Q05
+#define LAMP_CENTER_DROP_PYRAMID 53  // Q18
+#define LAMP_CAPTIVE_BALL_4X 54      // Q30
+#define LAMP_CAPTIVE_BALL_SPECIAL 55 // Q43
+
+// Byte 7
+#define LAMP_TOP_LEFT_STAR 56     // Q06
+#define LAMP_TOP_RIGHT_STAR 57    // Q19
+#define LAMP_LEFT_INLANE_STAR 58  // Q31
+#define LAMP_RIGHT_INLANE_STAR 59 // Q45
+
+enum LampCollectionIDs : uint8_t {
+    LAMP_COLL_BONUS_LAMPS = 0,
+    LAMP_COLL_BONUS_MULTIPLIERS,
+    LAMP_COLL_STARS,
+    LAMP_COLL_STARS_AWARDS,
+    LAMP_COLL_CAPTIVE_BALL,
+    LAMP_COLL_LEFT_DROP_TARGETS,
+    LAMP_COLL_CENTER_DROP_TARGETS,
+    LAMP_COLL_RIGHT_DROP_TARGETS,
+    LAMP_COLL_ALL_EYES,
+    LAMP_COLL_ALL_PYRAMIDS,
+    LAMP_COLL_GRID_EYES_TOP,
+    LAMP_COLL_GRID_EYES_MID,
+    LAMP_COLL_GRID_EYES_BOT,
+    LAMP_COLL_GRID_PYRAMIDS_TOP,
+    LAMP_COLL_GRID_PYRAMIDS_MID,
+    LAMP_COLL_GRID_PYRAMIDS_BOT,
+    LAMP_COLL_DROP_EYES,
+    LAMP_COLL_DROP_PYRAMIDS,
+    LAMP_COLL_DROP_ARROWS,
+
+    NUM_LAMP_COLLECTIONS
+};
+
+extern LampCollection* lampCollections[NUM_LAMP_COLLECTIONS];
+
+#endif // GS_BASE_LAMPS_H

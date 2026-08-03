@@ -1,0 +1,18 @@
+#ifndef RPU_OPERATOR_MENU_H
+#define RPU_OPERATOR_MENU_H
+#include <stdint.h>
+
+enum NoveltyModes : uint8_t {
+    NOVELTY_POINTS_AND_EB = 0,
+    NOVELTY_EB_ONLY,
+    NOVELTY_POINTS_ONLY,
+    NUMBER_OF_NOVELTY_MODES
+};
+enum KnockerModes : uint8_t {
+    KNOCKER_DISABLED = 0,
+    KNOCKER_SOL_ONLY,
+    KNOCKER_SOUND_ONLY,
+    KNOCKER_SOUND_AND_SOL,
+    NUMBER_OF_KNOCKER_MODES
+};
+#endif // RPU_OPERATOR_MENU_H
