@@ -1,11 +1,11 @@
 #include "LampAnimation.h"
 
+#include "AnimationData.h"
 #include "System/Lamps/LampsHelper.h"
 
 #include <avr/pgmspace.h>
 
 extern LampAnimation* animationList[];
-extern uint8_t  NUM_ANIMATIONS;
 
 namespace {
 uint8_t            currentAnimation     = 0xFF; // 0xFF = no animation running
@@ -74,7 +74,7 @@ void Animations::startAnimation(
         const uint8_t            numberOfRuns,
         const Time::time_t       frameDuration
 ) {
-    if (animationNumber >= NUM_ANIMATIONS) return;
+    if (animationNumber >= AnimationIDs::NUM_ANIMATIONS) return;
 
     currentAnimation     = animationNumber;
     currentDirection     = direction;

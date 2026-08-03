@@ -1,29 +1,26 @@
-#include "LampAnimation.h"
+// AUTO-GENERATED FILE � do not edit by hand.
+// Regenerate with tools/generate_lamp_animations.py
+#include "AnimationData.h"
 
 #include <avr/pgmspace.h>
 
-// Raw frame data, stays in flash
-static constexpr uint8_t animationData0[3][RPU_NUM_LAMP_BANKS] PROGMEM = {
-        {0b00000001, 0x00, 0x00, 0x00},
-        {0b00000011, 0x00, 0x00, 0x00},
-        {0b00000111, 0x00, 0x00, 0x00},
+static const uint8_t spinnerChase_data[3][8] PROGMEM = {
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03 },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0C },
+    { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05 },
+};
+LampAnimation spinnerChase(spinnerChase_data, 3);
+
+static const uint8_t bonusSweep_data[4][8] PROGMEM = {
+    { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+    { 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 },
+};
+LampAnimation bonusSweep(bonusSweep_data, 4);
+
+LampAnimation* animationList[NUM_ANIMATIONS] = {
+    &spinnerChase,
+    &bonusSweep,
 };
 
-static constexpr uint8_t animationData1[4][RPU_NUM_LAMP_BANKS] PROGMEM = {
-        {0xFF, 0x00, 0x00, 0x00},
-        {0x00, 0xFF, 0x00, 0x00},
-        {0x00, 0x00, 0xFF, 0x00},
-        {0x00, 0x00, 0x00, 0xFF},
-};
-
-// One const instance per animation
-LampAnimation anim0(animationData0, 3);
-LampAnimation anim1(animationData1, 4);
-
-// Registry of all animations
-LampAnimation* animationList[] = {
-        &anim0,
-        &anim1
-};
-
-uint8_t NUM_ANIMATIONS = sizeof(animationList) / sizeof(animationList[0]);
