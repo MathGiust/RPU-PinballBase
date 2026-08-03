@@ -4,19 +4,18 @@
 
 #include <avr/pgmspace.h>
 
-extern const LampAnimation* const animationList[];
-extern const uint8_t              NUM_ANIMATIONS;
+extern LampAnimation* animationList[];
+extern const uint8_t  NUM_ANIMATIONS;
 
 namespace {
-uint8_t            currentAnimation = 0xFF;
-uint8_t            currentFrame     = 0;
-Time::time_t       lastFrameTime    = 0;
-AnimationDirection currentDirection = AnimationDirection::FORWARD;
-uint8_t            runsRemaining    = 0;
-bool               infiniteRuns     = false;
-bool               pingPongForward  = true;
-
-constexpr Time::time_t FRAME_INTERVAL_MS = 100;
+uint8_t            currentAnimation     = 0xFF; // 0xFF = no animation running
+uint8_t            currentFrame         = 0;
+Time::time_t       lastFrameTime        = 0;
+Time::time_t       currentFrameDuration = 100;
+AnimationDirection currentDirection     = AnimationDirection::FORWARD;
+uint8_t            runsRemaining        = 0;
+bool               infiniteRuns         = false;
+bool               pingPongForward      = true;
 
 void applyFrame(const LampAnimation* anim, const uint8_t frameIndex) {
     for (uint8_t byteIndex = 0; byteIndex < RPU_NUM_LAMP_BANKS; byteIndex++) {
@@ -69,16 +68,22 @@ bool advanceFrame(const LampAnimation* anim) {
 }
 } // namespace
 
-void Animations::startAnimation(const uint8_t animationNumber, const AnimationDirection direction, const uint8_t numberOfRuns) {
+void Animations::startAnimation(
+        const uint8_t            animationNumber,
+        const AnimationDirection direction,
+        const uint8_t            numberOfRuns,
+        const Time::time_t       frameDuration
+) {
     if (animationNumber >= NUM_ANIMATIONS) return;
 
-    currentAnimation = animationNumber;
-    currentDirection = direction;
-    infiniteRuns     = (numberOfRuns == 0);
-    runsRemaining    = numberOfRuns;
-    pingPongForward  = true;
-    currentFrame     = (direction == AnimationDirection::BACKWARD) ? animationList[currentAnimation]->numFrames - 1 : 0;
-    lastFrameTime    = Time::getCurrentTime();
+    currentAnimation     = animationNumber;
+    currentDirection     = direction;
+    infiniteRuns         = (numberOfRuns == 0);
+    runsRemaining        = numberOfRuns;
+    currentFrameDuration = frameDuration;
+    pingPongForward      = true;
+    currentFrame         = (direction == AnimationDirection::BACKWARD) ? animationList[currentAnimation]->numFrames - 1 : 0;
+    lastFrameTime        = Time::getCurrentTime();
 
     applyFrame(animationList[currentAnimation], currentFrame);
 }
@@ -88,7 +93,7 @@ void Animations::stopAnimation() {
 
 void Animations::update() {
     if (currentAnimation == 0xFF) return;
-    if (Time::getCurrentTime() - lastFrameTime < FRAME_INTERVAL_MS) return;
+    if (Time::getCurrentTime() - lastFrameTime < currentFrameDuration) return;
 
     lastFrameTime = Time::getCurrentTime();
 

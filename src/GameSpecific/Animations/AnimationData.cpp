@@ -17,11 +17,11 @@ static constexpr uint8_t animationData1[4][RPU_NUM_LAMP_BANKS] PROGMEM = {
 };
 
 // One const instance per animation
-constexpr LampAnimation anim0(animationData0, 3);
-constexpr LampAnimation anim1(animationData1, 4);
+LampAnimation anim0(animationData0, 3);
+LampAnimation anim1(animationData1, 4);
 
 // Registry of all animations
-const LampAnimation* const animationList[] = {
+LampAnimation* animationList[] = {
         &anim0,
         &anim1
 };
